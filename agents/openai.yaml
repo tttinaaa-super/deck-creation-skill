@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deck Creation Pipeline"
+  short_description: "IMC营销方案→HTML幻灯片→PPTX 整链自动化"
+  default_prompt: "帮我把[品牌/产品]做一份完整的营销方案幻灯片，从策略到可交付的PPTX。"
