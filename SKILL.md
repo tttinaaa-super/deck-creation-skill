@@ -369,6 +369,27 @@ Each new version of the deck must clear old notes to avoid cross-version contami
 ### Text contrast on dark slides
 
 Body text and card content on dark backgrounds must use `#c0`-`#d0` brightness range (`#c0b8a8` / `#d0c8be`). The default `#a09888` is too dim at small (12-14px) sizes and causes readability complaints.
+---
+### Phase 3 ppt-master: Image Handling
+
+ppt-master's native DrawingML converter cannot embed external URLs. Before finalize_svg.py, all image hrefs in SVGs must point to local files in images/.
+
+Workflow:
+1. Download images to images/ during Setup phase.
+2. Use relative paths: href=../images/01_title.jpg in SVG image tags.
+3. After finalize_svg.py, verify it reports N image(s) aligned + embedded.
+
+### Phase 3 ppt-master: Speaker Notes
+
+total_md_split.py requires notes/total.md to exist. Write speaker notes as level-1 headings matching SVG filenames.
+
+### Phase 3 ppt-master: Python Runtime
+
+Use the bundled Python (not system python3). Install python-pptx via pip with escalated permissions.
+
+```bash
+BUNDLED_PYTHON="/Users/tina/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"
+```
 
 ---
 
