@@ -205,7 +205,24 @@ After the user picks a style, that choice informs the full presentation in Phase
 
 Generate the full HTML presentation using the user's chosen style and the saved plan content.
 
-**IMPORTANT — now use the proper frontend-slides approach**: read viewport-base.css, html-template.md, and the chosen style's details. The final presentation must use the 1920x1080 fixed stage with JavaScript scaling and viewport-base.css for proper slide stacking.
+**CRITICAL — Do NOT use viewport-base.css for the final presentation.** The visibility/opacity cascade + position:absolute approach in viewport-base.css causes blank slides and broken navigation in Safari. Use the proven approach instead:
+
+- **Stage**: centered fixed-size div (960x540px), no JavaScript scaling, no deck-stage transform
+- **Slide switching**: `display:none` / `display:flex` — NOT `visibility/opacity/pointer-events`
+- **Slide content**: each slide wraps content in a `.page` div; background/glow/vignette are child elements
+- **Navigation**: JavaScript `addEventListener('keydown')` for arrow keys — NOT inline `onclick`
+
+**Required features in the final presentation**:
+
+1. **Thumbnail sidebar (left)**: 200-240px wide, each item shows a cloned preview of the slide (170x96px) generated via JavaScript on load. Clone strips background elements (`.bg`, `.vg`, `.gl`), sets the clone to `position:absolute;width:960px;height:540px;transform:scale(0.177)`, and appends to the preview container. Click listeners use `addEventListener`, not inline onclick. Current slide auto-scrolls into view.
+
+2. **Edit mode**: Press E to toggle. When active, all `.page` divs get `contenteditable=true` and body gets `.edit-mode` class for cursor styling. Press E again to remove contenteditable. Ctrl+S saves the stage HTML to localStorage with a **versioned key** (`deck_slides_v{N}`). Do NOT auto-restore on page load — that causes stale data from old versions to corrupt new slides.
+
+3. **Full 13-17 slide content** covering all IMC sections: Title, Executive Summary, Business Context, Core Challenge, Campaign Objective, Human Insight, Brand Role, Big Idea, Message Architecture, Channel Architecture, Rollout Plan, Key Risks, Closing.
+
+4. **Text contrast**: Card body text (`cd p`, `.mst`, `.pt p`, `.bd`) must use `#d0c8be` or brighter. Do NOT use `#a09888` or darker — it becomes unreadable at small sizes on dark backgrounds.
+
+5. **localStorage isolation**: Use a **version-specific key** (e.g., `dd_slides_v5`) that changes with each major output to prevent cross-version data corruption. Never auto-load saved data on initialization.
 
 Map IMC sections to slide types using [references/slide-structure-mapping.md](references/slide-structure-mapping.md).
 
@@ -213,7 +230,17 @@ Density setting: **Low density / speaker-led** for the narrative sections (Conte
 
 ### Phase 2.3: Delivery
 
-Open the HTML file. Offer revisions, style tuning, or proceed to Phase 3 as next steps.
+Open the HTML file. Before declaring delivery complete, run this **verification checklist**:
+
+- [ ] All slides render full content (not just titles). Check especially grid/card pages and long text slides.
+- [ ] Arrow key navigation works: → ↓ advance, ← ↑ go back.
+- [ ] Sidebar thumbnail navigation works: clicking a thumbnail jumps to that slide.
+- [ ] Edit mode: press E, text becomes editable, press E again exits.
+- [ ] Ctrl+S saves edits (check the confirmation message appears).
+- [ ] Text contrast is adequate on ALL slides. Cards, body text, and metadata must be `#c0` or brighter on dark backgrounds.
+- [ ] On mobile/tablet viewports (if checked), the 960x540 stage may overflow. This is acceptable for a review deck.
+
+If any items fail, fix and re-verify. Then offer revisions or proceed to Phase 3.
 
 ---
 
