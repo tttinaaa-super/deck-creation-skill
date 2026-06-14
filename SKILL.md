@@ -55,19 +55,87 @@ Working assumptions:
 
 ## Phase 1: Strategy Plan (imc-4a-global)
 
-Load the `imc-4a-global` skill. Follow its standard workflow:
+Load the `imc-4a-global` skill. Follow its standard workflow.
+
+**The collaboration model for Phase 1 is a directed iterative loop, not a one-shot delivery.** The user needs to see, react to, and modify the plan before it locks. Treat every section as provisional until confirmed, especially the Big Idea.
+
+### Step 1.1: Initial Output
+
+Build the full 14-section IMC plan:
 
 1. **Build the strategy spine** -- Business Context -> Key Challenge -> Campaign Ambition -> Audience -> Human Insight -> Brand Role -> Big Idea
 2. **Translate into IMC system** -- Communication Task -> Message Architecture -> Channel Roles -> Content Ecosystem -> Phased Rollout -> Measurement Framework
 3. **Output the 14-section default structure** (see imc-4a-global SKILL.md for the full section list)
 
-**After output**: save the complete plan as a Markdown file:
+**On first output**: present the plan in a readable format (convert to HTML and open in Safari). Save as `/tmp/deck-creation-plan-<timestamp>.md`.
 
-```
-/tmp/deck-creation-plan-<timestamp>.md
-```
+### Step 1.2: Strategic Review (Gate A)
 
-This file becomes the source for both Phase 2 and Phase 3.
+After presenting the plan, give a **structured review** covering:
+
+- **Key assumptions** you made (audience, budget, timing, scope)
+- **Tension points** in the strategy that could go either way
+- **Riskiest claims** that need user validation
+- **Open questions** where user input would improve the plan
+
+Wait for user feedback. The user may:
+- Confirm some assumptions and change others
+- Want entire sections rewritten
+- Point out factual errors or brand-specific constraints
+- Request alternative strategic directions
+
+After receiving feedback, **revise the plan** and re-present it.
+
+### Step 1.3: Big Idea Workshop (Iterative, May Run Multiple Rounds)
+
+The Big Idea is the single most important creative decision in the plan. It must be sharpened collaboratively, not delivered as a final answer on the first attempt.
+
+**In each round**:
+
+1. Present the current Big Idea(s) with:
+   - The problem it solves strategically
+   - How it translates across channels
+   - The core tension or emotional hook
+   - Optionally, 2-3 alternative directions if the user is still searching
+
+2. Ask for specific feedback:
+   - Does the frame feel right (restorative / empowering / provocative)?
+   - Is it too abstract or too literal?
+   - Should the tension be sharper, softer, or different?
+   - Would the user want to blend elements from different directions?
+
+3. Revise based on feedback and present again.
+
+**Exit criterion**: The user explicitly confirms the Big Idea. Do not advance until this happens.
+
+Typical cycle: 2-4 rounds. Some Big Ideas lock on the first pass; most need 2-3 rounds of refinement.
+
+**Common iteration patterns**:
+
+| User says | What to do |
+|-----------|------------|
+| "这个方向对了，但太平了" | Sharpen the tension; find a more provocative angle on the same frame |
+| "再想想其他的方向" | Present 2-3 fundamentally different frames, not variations of the same |
+| "把 A 和 B 结合起来" | Fuse the strongest elements; show the fusion in a single statement |
+| "我想要更犀利一点的" | Test a more direct, less polished version; remove protective qualifiers |
+| "这个太抽象了" | Ground in concrete physical actions (close door / put on mask / lean back) |
+
+### Step 1.4: User Direct Edit (Gate B)
+
+After Big Idea is locked, present the **full revised plan** in Safari.
+
+The user should be able to directly edit the Markdown file at `/tmp/deck-creation-plan-<timestamp>.md`. After they edit:
+
+- Read the modified file
+- Identify what changed and understand the new direction
+- Rewrite the entire plan to be internally consistent with the user's changes
+- This is **not** a patch -- re-derive every section from the user's updated framing
+
+### Step 1.5: Final Confirmation (Gate C)
+
+Ask the user to confirm the plan is ready before proceeding to Phase 2.
+
+At this point the user may still request further tweaks. That is fine. Do not proceed to Phase 2 until the user gives an explicit green light.
 
 ---
 
