@@ -172,15 +172,40 @@ Load the `frontend-slides` skill. Skip Phase 1 content discovery -- the content 
 
 ### Phase 2.1: Style Discovery
 
-Present 3 style previews (the standard frontend-slides Phase 2 flow). For this pipeline, the default mood is **Impressed/Confident** -- use bold, premium aesthetics that suit a marketing strategy deck. Offer an optional brand color override.
+**Do NOT use the viewport-base.css / stage-scaling approach for previews.** It introduces CSS cascade issues (position overrides, visibility/opacity toggling) that can render slides blank. Save viewport-base.css for the final full presentation only.
 
-Ask the user one bundled question:
+Instead, generate 3 style previews using a **simple centered stage**:
 
-> _"Three style previews are ready. Pick one, or tell me if you want a different mood (calm, energetic, premium, etc.)"_
+- Fixed-size stage div (960x540 pixels) centered in the viewport body
+- Slides use `display:none` / `display:flex` for switching (not visibility/opacity)
+- No fixed 16:9 scaling JavaScript
+- Use the `#dts` dot-navigation pattern (proven to work reliably in Safari)
+
+**Show at least 5 slides per style**, not just the title slide. The user needs to see how different content types render:
+
+1. Title slide (Big Idea + brand)
+2. Section divider or business context slide
+3. Human Insight / quote slide
+4. Channel architecture or grid/comparison slide
+5. Big Idea closing slide
+
+The default mood for previews is **Impressed/Confident** -- use bold, premium aesthetics. Choose 3 distinct styles:
+
+- 1 safe preset from STYLE_PRESETS.md matching the mood
+- 1 bold template from the template pack
+- 1 wildcard custom design
+
+Open all 3 in Safari and ask the user one bundled question:
+
+> _"Three style previews (5 slides each) are open in Safari. Use arrow keys to navigate. Pick one, or tell me if you want a different mood (calm, energetic, premium, etc.)"_
+
+After the user picks a style, that choice informs the full presentation in Phase 2.2.
 
 ### Phase 2.2: Generation
 
 Generate the full HTML presentation using the user's chosen style and the saved plan content.
+
+**IMPORTANT — now use the proper frontend-slides approach**: read viewport-base.css, html-template.md, and the chosen style's details. The final presentation must use the 1920x1080 fixed stage with JavaScript scaling and viewport-base.css for proper slide stacking.
 
 Map IMC sections to slide types using [references/slide-structure-mapping.md](references/slide-structure-mapping.md).
 
@@ -231,6 +256,37 @@ This pipeline makes these **default assumptions** (do not ask unless the user co
 | Template | Free design (no template preset) |
 
 **Always ask**: brand/product name (Phase 0), style preference (Phase 2), and the Eight Confirmations (Phase 3, per ppt-master rules). Everything else is an assumption you can label and proceed.
+
+---
+
+---
+
+## Practical Notes (from testing)
+
+These are hard-won lessons from running the pipeline end-to-end. Update them as new issues surface.
+
+### Preview HTML must be simple
+
+viewport-base.css uses `position: absolute; inset: 0; visibility: hidden;` for slide stacking. Combined with extra CSS overrides (like `position: relative; display: flex;`), slides can render completely blank. For previews in Phase 2.1, use a minimal HTML structure instead:
+
+- Centered stage, fixed size, no scaling JS
+- `display:none` / `display:flex` for slide switching
+- All styling inline in one CSS block
+
+### Big Idea iterations need session tracking
+
+During Layer 2 (Big Idea Workshop), save each round's version so the user can compare. A simple approach: save each iteration to `/tmp/deck-creation-bigidea-round-{n}.md` and mention the file when presenting.
+
+### The user confirms, not you
+
+Never ask "is this good enough?" — the user decides when to advance. For Big Idea, explicitly ask: "Do you want to lock this, try another round, or explore alternatives?"
+
+### Phase 1 presentations
+
+When presenting the plan in Layer 1 or Layer 3, always:
+1. Generate an HTML version and open in Safari for comfortable reading
+2. Save the Markdown to `/tmp/` and also copy to workspace for easy editing
+3. Give a structured review BEFORE asking for confirmation
 
 ---
 
