@@ -143,7 +143,15 @@ Save as `/tmp/deck-creation-plan-<timestamp>.md`. Present in Safari.
 
 #### Gate B: User Direct Edit
 
-The user can directly edit the Markdown file. After they edit:
+**Preview first**: Open the plan in Safari so the user can read through it comfortably.
+
+**Then ask**: "要不要改？" If the user says yes:
+
+1. Copy the plan file to a workspace location: 
+2. Open it in TextEdit:  (macOS native, works immediately)
+3. Tell the user: edit freely in TextEdit, save with , then come back and tell me you're done
+
+After the user confirms they finished editing:
 
 - Read the modified file
 - Identify what changed and understand the new direction
