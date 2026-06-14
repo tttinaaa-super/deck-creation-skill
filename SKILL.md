@@ -57,38 +57,39 @@ Working assumptions:
 
 Load the `imc-4a-global` skill. Follow its standard workflow.
 
-**The collaboration model for Phase 1 is a directed iterative loop, not a one-shot delivery.** The user needs to see, react to, and modify the plan before it locks. Treat every section as provisional until confirmed, especially the Big Idea.
+**The collaboration model uses progressive disclosure — three layers that build on each other.** Each layer must be confirmed by the user before moving to the next. The Big Idea is the single most important creative decision and gets its own dedicated workshop phase.
 
-### Step 1.1: Initial Output
+### Layer 1: Direction Lock (Gate A)
 
-Build the full 14-section IMC plan:
+Do NOT write the full plan yet. Produce only:
 
-1. **Build the strategy spine** -- Business Context -> Key Challenge -> Campaign Ambition -> Audience -> Human Insight -> Brand Role -> Big Idea
-2. **Translate into IMC system** -- Communication Task -> Message Architecture -> Channel Roles -> Content Ecosystem -> Phased Rollout -> Measurement Framework
-3. **Output the 14-section default structure** (see imc-4a-global SKILL.md for the full section list)
+1. **Executive Summary** (4-6 sentences covering what the campaign is, why it matters, and what success looks like)
+2. **Strategic Pillars Outline** — a rough skeleton showing the key sections and what each will argue, without writing the full content:
 
-**On first output**: present the plan in a readable format (convert to HTML and open in Safari). Save as `/tmp/deck-creation-plan-<timestamp>.md`.
+```
+Business Context → [2-3 sentence summary of the market reality]
+Core Challenge → [the one-line tension]
+Audience & Insight → [who and why]
+Brand Role → [what the brand does for the user]
+Big Idea → [placeholder — will be workshopped in Layer 2]
+Channel Architecture → [rough channel categories]
+Rollout → [high-level rhythm]
+```
 
-### Step 1.2: Strategic Review (Gate A)
+Present this in a readable format (convert to HTML and open in Safari). Save as `/tmp/deck-creation-plan-<timestamp>.md`.
 
-After presenting the plan, give a **structured review** covering:
+Then give a **structured review** covering:
 
 - **Key assumptions** you made (audience, budget, timing, scope)
 - **Tension points** in the strategy that could go either way
-- **Riskiest claims** that need user validation
-- **Open questions** where user input would improve the plan
+- **Open questions** where user input would shape direction
+- **Alternative direction options** if the brief supports them
 
-Wait for user feedback. The user may:
-- Confirm some assumptions and change others
-- Want entire sections rewritten
-- Point out factual errors or brand-specific constraints
-- Request alternative strategic directions
+**Gate A exit**: The user confirms the direction is right. The outline may still shift during Big Idea workshop — that is expected.
 
-After receiving feedback, **revise the plan** and re-present it.
+### Layer 2: Big Idea Workshop (Iterative, May Run Multiple Rounds)
 
-### Step 1.3: Big Idea Workshop (Iterative, May Run Multiple Rounds)
-
-The Big Idea is the single most important creative decision in the plan. It must be sharpened collaboratively, not delivered as a final answer on the first attempt.
+Do NOT expand the full plan yet. Stay focused on the Big Idea until it locks.
 
 **In each round**:
 
@@ -120,22 +121,40 @@ Typical cycle: 2-4 rounds. Some Big Ideas lock on the first pass; most need 2-3 
 | "我想要更犀利一点的" | Test a more direct, less polished version; remove protective qualifiers |
 | "这个太抽象了" | Ground in concrete physical actions (close door / put on mask / lean back) |
 
-### Step 1.4: User Direct Edit (Gate B)
+### Layer 3: Full Plan Expansion (Gate B + Gate C)
 
-After Big Idea is locked, present the **full revised plan** in Safari.
+Now that the direction and Big Idea are locked, expand the outline into the full 14-section IMC plan:
 
-The user should be able to directly edit the Markdown file at `/tmp/deck-creation-plan-<timestamp>.md`. After they edit:
+- Business Context
+- The Core Challenge
+- Campaign Objective (Business / Marketing / Communication)
+- Audience Framework
+- Human Insight
+- Brand Role
+- Big Idea (locked in Layer 2)
+- Message Architecture
+- IMC Channel Architecture
+- Content Ecosystem
+- Rollout Plan
+- Measurement Framework
+- Key Risks and Mitigation
+
+Save as `/tmp/deck-creation-plan-<timestamp>.md`. Present in Safari.
+
+#### Gate B: User Direct Edit
+
+The user can directly edit the Markdown file. After they edit:
 
 - Read the modified file
 - Identify what changed and understand the new direction
 - Rewrite the entire plan to be internally consistent with the user's changes
-- This is **not** a patch -- re-derive every section from the user's updated framing
+- This is **not** a patch — re-derive every section from the user's updated framing
 
-### Step 1.5: Final Confirmation (Gate C)
+#### Gate C: Final Confirmation
 
 Ask the user to confirm the plan is ready before proceeding to Phase 2.
 
-At this point the user may still request further tweaks. That is fine. Do not proceed to Phase 2 until the user gives an explicit green light.
+Do not proceed to Phase 2 until the user gives an explicit green light.
 
 ---
 
