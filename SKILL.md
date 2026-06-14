@@ -263,6 +263,22 @@ Follow ppt-master's standard pipeline (Steps 2-7):
 5. **Executor**: Generate SVG pages sequentially
 6. **Post-processing & Export**: `finalize_svg.py` -> `svg_to_pptx.py`
 
+**Notes system (add to each presentation)**:
+
+The slide deck must include a per-slide notes system accessible via **N key**. Implementation:
+
+1. **Global slide index**: Track the current slide with `window._curSlide = idx;` added inside the `goTo` function (the REAL `goTo`, not `window.goTo` — the navigation code uses the local `goTo` inside an IIFE, so `window.goTo` wrapping does NOT work). Read the current slide in `nOpen()` via `window._curSlide`.
+
+2. **Notes panel**: Fixed-position panel (bottom-right, 280px wide) with textarea. On N keypress, read `_nD[window._curSlide]` to load notes for that slide. Save on input to `_nD[window._curSlide]` and persist to localStorage via key `ddn4`.
+
+3. **Auto-close on navigation**: In the `goTo` function, add `document.getElementById('np').classList.remove('show')` before the page transition to close the notes panel when navigating away.
+
+4. **Auto-show on return**: After the page transition in `goTo`, check if `window._nD[idx]` has content. If so, auto-open the notes panel and show the saved notes. This prevents the user from missing their notes when flipping back.
+
+5. **Versioned localStorage clearing**: On page load, check `localStorage.getItem('dd_ver')`. If it doesn't match the current version string, clear `ddn4` and update `dd_ver`. This must run BEFORE the notes data is loaded.
+
+6. **Sidebar note indicators**: Add a small dot indicator (`.nd`) to each sidebar item. On note save/load, call `updateDots()` to toggle `.show` class on dots that have non-empty notes data, giving the user a visual overview of which slides have notes.
+
 ### Phase 3.3: Deliver
 
 Open the exported PPTX. Offer refinements.
@@ -314,6 +330,45 @@ When presenting the plan in Layer 1 or Layer 3, always:
 1. Generate an HTML version and open in Safari for comfortable reading
 2. Save the Markdown to `/tmp/` and also copy to workspace for easy editing
 3. Give a structured review BEFORE asking for confirmation
+
+### goTo scope issue (critical for notes tracking)
+
+The v5 slide navigation code uses an IIFE (immediately-invoked function expression). The `goTo` function is local inside the IIFE, and only exported as `window.goTo = goTo` for debugging. This means wrapping `window.goTo` to track the current slide has NO effect — the actual navigation always uses the internal `goTo`.
+
+**Fix**: Insert `window._curSlide = idx;` directly into the real `goTo` function via text replacement before the function body. Use `window._curSlide` (not a plain `_curSlide` variable, which would be scoped to the IIFE and inaccessible from the notes code).
+
+### Notes system: auto-close and auto-show
+
+The notes panel should:
+- **Close automatically** when navigating to a new slide (prevent misleading persistence)
+- **Re-open automatically** when returning to a slide that has saved notes (prevent missed notes)
+- Each slide has **independent notes** keyed by `_nD[slideIndex]`
+- The notes panel is toggled with **N key** (not spacebar/enter conflicts)
+
+Implementation: In the `goTo` function, add close logic before the page transition (`document.getElementById('np').classList.remove('show')`) and auto-show logic after (`if (window._nD && window._nD[idx]) { /* open panel, set textarea value */ }`).
+
+### Versioned localStorage and note clearing
+
+Each new version of the deck must clear old notes to avoid cross-version contamination:
+- Use a version key: `localStorage.setItem('dd_ver', 'v20')`
+- On page load, check `dd_ver`. If it doesn't match, clear `ddn4` and update `dd_ver`
+- The version check must run **before** the notes data is loaded
+- Use a separate `<script>` block before `var _nD = {};` to ensure ordering
+
+### Image sourcing and selection
+
+**Source**: Use Unsplash direct HTTPS URLs (`images.unsplash.com`) — free for commercial use, reliable, no licensing concerns for pitch decks.
+
+**Selection rules**:
+- **Car interior slides** (Title, Closing): Must show NO people. No jeans, no hands, no silhouettes. A luxury car dashboard or rear seat with warm ambient lighting is ideal.
+- **Human Insight slides**: Avoid full-body shots or visible clothing. Use close-up objects related to relaxation (candle, aromatherapy, texture, steam) instead of people.
+- **Business Context slides**: Use premium cityscapes. Avoid images that look like low-income areas. Shanghai/Hong Kong skyline at night works well.
+- **Big Idea slides**: Abstract light/door imagery. Avoid literal doors.
+- All images must have a 55% black overlay (`.img-overlay`) to ensure text readability on dark backgrounds.
+
+### Text contrast on dark slides
+
+Body text and card content on dark backgrounds must use `#c0`-`#d0` brightness range (`#c0b8a8` / `#d0c8be`). The default `#a09888` is too dim at small (12-14px) sizes and causes readability complaints.
 
 ---
 
