@@ -107,9 +107,9 @@ Do NOT expand the full plan yet. Stay focused on the Big Idea until it locks.
 
 3. Revise based on feedback and present again.
 
-**Exit criterion**: The user explicitly confirms the Big Idea. Do not advance until this happens.
+**Exit criterion**: The user decides when to move on. Do not push to advance — let the user say "let's proceed."
 
-Typical cycle: 2-4 rounds. Some Big Ideas lock on the first pass; most need 2-3 rounds of refinement.
+Typical cycle: 2-4 rounds. Some Big Ideas lock on the first pass; most need multiple rounds of refinement. **Re-entry is always allowed** — advancing to Layer 3 does not prevent returning to Layer 2 for another round of Big Idea work if the user changes their mind or wants to explore alternatives later.
 
 **Common iteration patterns**:
 
